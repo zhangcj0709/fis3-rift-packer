@@ -1,6 +1,8 @@
+//vi fis3-rift-packer/index.js
+
 var fis = module.exports = require('fis3');
-//fis.require.prefixes.unshift('fis3');
-fis.cli.name = 'fis3-rift-packer';
+fis.require.prefixes.unshift('pkg');
+fis.cli.name = 'pkg';
 fis.cli.info = require('./package.json');
 // 排除项目文件
 fis.set('project.ignore', ['fis-conf.js', 'node_modules/**', 'output/**', 'public/**', '*.bak']); // set project.ignore 为覆盖不是叠加

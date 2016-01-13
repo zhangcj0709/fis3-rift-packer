@@ -1,3 +1,7 @@
+#!/usr/bin/env node
+
+// vi fis3-rift-packer/bin/pgk.js
+
 var Liftoff = require('liftoff');
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');

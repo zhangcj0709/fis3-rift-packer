@@ -1,0 +1,31 @@
+{
+  "name": "fis3-rift-packer",
+  "version": "1.0.0",
+  "description": "FIS3的解决方案包装",
+  "main": "index.js",
+  "bin": {
+    "packer": "packer.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhangcj",
+  "license": "MIT",
+  "dependencies": {
+    "fis-parser-less": "^0.1.3",
+    "fis3": "^3.0.6",
+    "liftoff": "^2.1.0",
+    "minimist": "^1.1.1"
+  },
+  "keywords": [
+    "fis3"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangcj0709/fis3-rift-packer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhangcj0709/fis3-rift-packer/issues"
+  },
+  "homepage": "https://github.com/zhangcj0709/fis3-rift-packer#readme"
+}

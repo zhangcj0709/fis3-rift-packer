@@ -1,5 +1,5 @@
 var fis = module.exports = require('fis3');
-fis.require.prefixes.unshift('fis3-rift-packer');
+//fis.require.prefixes.unshift('fis3');
 fis.cli.name = 'fis3-rift-packer';
 fis.cli.info = require('./package.json');
 // 排除项目文件

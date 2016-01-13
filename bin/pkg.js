@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-// vi fis3-rift-packer/bin/pgk.js
+// vi fis3-rift-packer/bin/pkg.js
 
 var Liftoff = require('liftoff');
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var cli = new Liftoff({
-  name: 'pgk', // 命令名字
+  name: 'pkg', // 命令名字
   processTitle: 'fis3-rift-packer',
   moduleName: 'fis3-rift-packer',
   configName: 'fis-conf',

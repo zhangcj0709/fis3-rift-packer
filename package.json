@@ -4,7 +4,7 @@
   "description": "FIS3的解决方案包装",
   "main": "index.js",
   "bin": {
-    "packer": "packer.js"
+    "packer": "bin/packer.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,9 +1,8 @@
-//vi fis3-rift-packer/index.js
-
 var fis = module.exports = require('fis3');
 fis.require.prefixes.unshift('pkg');
 fis.cli.name = 'pkg';
 fis.cli.info = require('./package.json');
+
 // 排除项目文件
 fis.set('project.ignore', ['fis-conf.js', 'node_modules/**', 'output/**', 'public/**', '*.bak']); // set project.ignore 为覆盖不是叠加
 fis.set('project.fileType.text', 'coffee, scss, hbs'); //追加文本文件后缀列表
@@ -12,44 +11,51 @@ fis.set('project.fileType.text', 'coffee, scss, hbs'); //追加文本文件后�
 // 设置发布目录
 fis.match('*', {
     deploy: fis.plugin('local-deliver', {
-      to: './public'
-    }),
+        to: './public'
+    })
+});
+
+// 发布目录下二级目录
+fis.set('basePath', ''); 
+
+fis.match("*", {
     release: false //默认设置所有文件不发布
 });
+
 fis.match('resourceMap.json', {
-    release: '/$0'
-})
+    release: '/${basePath}/$0'
+});
 
 // 插件完整发布到plugins目录
 fis.match('/app/plugins/(**)', {
-    release: '/plugins/$1'
+    release: '/${basePath}/plugins/$1'
 });
 
 // js发布到scripts 目录
 fis.match('/app/{scripts,views,vendor}/({*,**/*}.{js,coffee})', {
-    release: '/scripts/$1$2$3$4'
+    release: '/${basePath}/scripts/$1$2$3$4'
 });
 
 // css发布到styles目录
 fis.match('/app/{styles,views,vendor}/({[a-z]*,**/[a-z]*}.{css,scss,sass})', {
-    release: '/styles/$1$2$3$4'
+    release: '/${basePath}/styles/$1$2$3$4'
 });
 
 // 页面发布到views目录
 fis.match('/app/views/({*,**/*}.{html,hbs})', {
     useMap: true,
-    release: '/views/$1$2$3$4',
+    release: '/${basePath}/views/$1$2$3$4',
     isHtmlLike: true
 });
 
 // 图片发布到images目录
 fis.match('/app/images/({*,**/*}.{png,gif,jpg,jpeg})', {
-    release: '/images/$1$2$3$4$5$6$7$8'
-})
+    release: '/${basePath}/images/$1$2$3$4$5$6$7$8'
+});
 
 // js和css的合并文件发布到对应pkg目录
 fis.match('/{scripts,styles}/pkg/**', {
-    release: '/$0'
+    release: '/${basePath}/$0'
 });
 
 
@@ -77,6 +83,9 @@ fis.match('/app/vendor/{*,**/*}.{js,coffee}', {
 
 fis.match('/app/vendor/jquery-1.11.3.min.js', {
     packOrder: -9999 //jquery.js合并到vendor.js开始处
+});
+fis.match('/app/vendor/jquery.mobile-1.4.5.min.js', {
+    packOrder: -9998
 });
 /** END: 合并js*/
 

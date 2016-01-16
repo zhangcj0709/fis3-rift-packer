@@ -49,7 +49,7 @@ fis.match('/app/views/({*,**/*}.{html,hbs})', {
 });
 
 // 图片发布到images目录
-fis.match('/app/images/({*,**/*}.{png,gif,jpg,jpeg})', {
+fis.match('/app/images/({*,**/*}.{png,gif,jpg,jpeg,ico})', {
     release: '/${basePath}/images/$1$2$3$4$5$6$7$8'
 });
 
@@ -137,7 +137,7 @@ fis.match('*:coffee', {
 
 
 fis.on('compile:start', function(file) {
-  console.log('%s', file.subpath);
+  //console.log('%s', file.subpath);
 });
 
 fis.match('::package', {

@@ -150,6 +150,16 @@ fis.match('::package', {
 
 
 
+//预编译handlebars模板文件到源目录scripts下
+fis.match('app/{views,templates}/(**/templates/{**,*}).hbs', {
+    precompileId: '$1$2'
+});
+fis.match('::package', {
+    spriter: fis.plugin('rift-precompile', {
+      to: './app/scripts/templates.js'
+    })
+});
+
 
 // fis3 release prod 产品发布，压缩js、css
 fis.media('prod')

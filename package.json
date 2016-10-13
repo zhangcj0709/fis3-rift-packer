@@ -1,6 +1,6 @@
 {
   "name": "fis3-rift-packer",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "FIS3的解决方案包装",
   "main": "index.js",
   "bin": {
@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "fis-parser-coffee-script": "0.0.2",
-    "fis3": "^3.0.6",
+    "fis3": "3.3.30",
     "fis3-hook-cmd": "^0.1.2",
     "fis3-parser-sass": "^0.1.1",
     "fis3-postpackager-loader": "^1.3.12",

@@ -152,7 +152,7 @@ fis.match('::package', {
 
 //预编译handlebars模板文件到源目录scripts下
 fis.match('app/{views,templates}/(**/templates/{**,*}).hbs', {
-    precompileId: '$1$2'
+    precompileId: '$1$2$3$4'
 });
 fis.match('::package', {
     spriter: fis.plugin('rift-precompile', {

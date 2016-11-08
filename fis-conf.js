@@ -4,14 +4,14 @@ fis.cli.name = 'pkg';
 fis.cli.info = require('./package.json');
 
 // 排除项目文件
-fis.set('project.ignore', ['fis-conf.js', 'node_modules/**', 'output/**', 'public/**', '*.bak']); // set project.ignore 为覆盖不是叠加
-fis.set('project.fileType.text', 'coffee, scss, hbs'); //追加文本文件后缀列表
+fis.set('project.ignore', ['fis-conf.js', 'node_modules/**', 'output/**', 'public/**', 'build/**', '**/*.bak', '**/*.md']); // set project.ignore 为覆盖不是叠加
+fis.set('project.fileType.text', 'coffee, scss, sass, hbs'); //追加文本文件后缀列表
 
 
 // 设置发布目录
 fis.match('*', {
     deploy: fis.plugin('local-deliver', {
-        to: './public'
+        to: './build'
     })
 });
 
@@ -33,24 +33,24 @@ fis.match('/app/plugins/(**)', {
 
 // js发布到scripts 目录
 fis.match('/app/{scripts,views,vendor}/({*,**/*}.{js,coffee})', {
-    release: '/${basePath}/scripts/$1$2$3$4'
+    release: '/${basePath}/scripts/$1'
 });
 
 // css发布到styles目录
 fis.match('/app/{styles,views,vendor}/({[a-z]*,**/[a-z]*}.{css,scss,sass})', {
-    release: '/${basePath}/styles/$1$2$3$4'
+    release: '/${basePath}/styles/$1'
 });
 
 // 页面发布到views目录
 fis.match('/app/views/({*,**/*}.{html,hbs})', {
     useMap: true,
-    release: '/${basePath}/views/$1$2$3$4',
+    release: '/${basePath}/views/$1',
     isHtmlLike: true
 });
 
 // 图片发布到images目录
 fis.match('/app/images/({*,**/*}.{png,gif,jpg,jpeg,ico})', {
-    release: '/${basePath}/images/$1$2$3$4$5$6$7$8'
+    release: '/${basePath}/images/$1'
 });
 
 // js和css的合并文件发布到对应pkg目录
@@ -63,13 +63,13 @@ fis.match('/{scripts,styles}/pkg/**', {
 //启用模块化插件
 // npm install [-g] fis3-hook-cmd
 fis.hook('cmd', {
-    baseUrl: '/scripts/',
+    baseUrl: '/scripts/'
 });
 
 fis.match('/app/{scripts,views}/({*,**/*}).{js,coffee}', {
     isMod: true, //模块化
     packTo: '/scripts/pkg/app.js', //合并到app.js
-    moduleId: '$1$2'
+    moduleId: '$1'
 });
 
 fis.match('/app/scripts/sea.js', {
@@ -78,14 +78,7 @@ fis.match('/app/scripts/sea.js', {
 });
 
 fis.match('/app/vendor/{*,**/*}.{js,coffee}', {
-    packTo: '/scripts/pkg/vendor.js', //合并到vendor.js
-});
-
-fis.match('/app/vendor/jquery-1.11.3.min.js', {
-    packOrder: -9999 //jquery.js合并到vendor.js开始处
-});
-fis.match('/app/vendor/jquery.mobile-1.4.5.min.js', {
-    packOrder: -9998
+    packTo: '/scripts/pkg/vendor.js' //合并到vendor.js
 });
 /** END: 合并js*/
 
@@ -96,7 +89,7 @@ fis.match('/app/{styles,views}/{[a-z]*,**/[a-z]*}.{css,scss,sass}', {
 });
 
 fis.match('/app/vendor/{[a-z]*,**/[a-z]*}.{css,scss,sass}', {
-    packTo: '/styles/pkg/vendor.css', //合并到vendor.css
+    packTo: '/styles/pkg/vendor.css' //合并到vendor.css
 });
 /** END: 合并css*/
 
@@ -110,7 +103,7 @@ fis.match('*.coffee', {
 
 // 启用 parser 插件编译sass
 fis.config.set('settings.parser.sass', {
-    include_paths: ["/app/styles"] // 加入文件查找目录 
+    include_paths: ["/app/styles"] // 加入文件查找目录
 });
 //npm install -g fis-parser-sass
 fis.match('*.scss', {
@@ -151,8 +144,8 @@ fis.match('::package', {
 
 
 //预编译handlebars模板文件到源目录scripts下
-fis.match('app/{views,templates}/(**/templates/{**,*}).hbs', {
-    precompileId: '$1$2$3$4'
+fis.match('/app/views/({*,**/*}/templates/{**,*}).hbs', {
+    precompileId: '$1'
 });
 fis.match('::package', {
     spriter: fis.plugin('rift-precompile', {
@@ -176,4 +169,4 @@ fis.media('prod')
         optimizer: fis.plugin('clean-css', {
         // option of clean-css
         })
-    })
+    });

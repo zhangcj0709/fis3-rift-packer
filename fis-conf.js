@@ -32,7 +32,7 @@ fis.match('/app/plugins/(**)', {
 });
 
 // js发布到scripts 目录
-fis.match('/app/{scripts,views,vendor}/({*,**/*}.{js,coffee})', {
+fis.match('/app/{scripts,views,vendor}/(**.{js,coffee})', {
     release: '/${basePath}/scripts/$1'
 });
 
@@ -42,14 +42,14 @@ fis.match('/app/{styles,views,vendor}/({[a-z]*,**/[a-z]*}.{css,scss,sass})', {
 });
 
 // 页面发布到views目录
-fis.match('/app/views/({*,**/*}.{html,hbs})', {
+fis.match('/app/views/(**.{html,hbs})', {
     useMap: true,
     release: '/${basePath}/views/$1',
     isHtmlLike: true
 });
 
 // 图片发布到images目录
-fis.match('/app/images/({*,**/*}.{png,gif,jpg,jpeg,ico})', {
+fis.match('/app/images/(**.{png,gif,jpg,jpeg,ico})', {
     release: '/${basePath}/images/$1'
 });
 
@@ -66,7 +66,7 @@ fis.hook('cmd', {
     baseUrl: '/scripts/'
 });
 
-fis.match('/app/{scripts,views}/({*,**/*}).{js,coffee}', {
+fis.match('/app/{scripts,views}/(**).{js,coffee}', {
     isMod: true, //模块化
     packTo: '/scripts/pkg/app.js', //合并到app.js
     moduleId: '$1'
@@ -77,7 +77,7 @@ fis.match('/app/scripts/sea.js', {
     packOrder: -9999 //require.js合并到app.js开始处
 });
 
-fis.match('/app/vendor/{*,**/*}.{js,coffee}', {
+fis.match('/app/vendor/**.{js,coffee}', {
     packTo: '/scripts/pkg/vendor.js' //合并到vendor.js
 });
 /** END: 合并js*/
@@ -144,9 +144,13 @@ fis.match('::package', {
 
 
 //预编译handlebars模板文件到源目录scripts下
-fis.match('/app/views/({*,**/*}/templates/{**,*}).hbs', {
+fis.match('/app/views/((**)/templates/(**)).hbs', {
     precompileId: '$1'
 });
+fis.match('/app/views/templates/(**).hbs', {
+    precompileId: '$1'
+});
+
 fis.match('::package', {
     spriter: fis.plugin('rift-precompile', {
       to: './app/scripts/templates.js'

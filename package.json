@@ -1,6 +1,6 @@
 {
   "name": "fis3-rift-packer",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "FIS3的解决方案包装",
   "main": "fis-conf.js",
   "bin": {

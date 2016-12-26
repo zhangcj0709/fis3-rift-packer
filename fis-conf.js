@@ -147,7 +147,7 @@ fis.match('::package', {
 fis.match('app/views/((**)/templates/(**)).hbs', {
     precompileId: '$1'
 });
-fis.match('app/views/templates/(**).hbs', {
+fis.match('app/views/(templates/**).hbs', {
     precompileId: '$1'
 });
 

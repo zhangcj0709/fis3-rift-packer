@@ -8,3 +8,5 @@ js，coffee会编译到scripts目录下， css, sass编译到styles目录下
 
 支持css合并，styles,views目录下css、scss、sass合并到/styles/pkg/vendor.css文件中
 页面中可使用注解<!--@require "app/vendor/aio.css"-->直接引入合并的vendor.css文件
+
+aio.js, aio.css文件仅供引用

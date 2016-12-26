@@ -9,3 +9,6 @@
 
 支持预编译handlebars模板文件, views目录下所有templates子目录中.hbs模板文件预编译成app/scripts/templates.js，以下划线_开始命名的文件编译成partial
 js引入templates.js（若已经引入app.js， js中直接使用require("templates")即可）后可，使用Handlebars.templates[模板名称], Handlebars.partial[模板名称] 来获取模板
+
+views/templates目录存放公共模板文件
+views/components目录建议存放公共组件

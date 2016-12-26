@@ -1,0 +1,8 @@
+{
+  "filesHome": "build",
+  "dataFiles": [],
+  "serverPort": 3000,
+  "pageMode": true,
+  "dataFiles": ["test/data.js"],
+  "extraHelpers":["test/helper.js"]
+}

@@ -1,0 +1,21 @@
+{{#partial "main"}}
+  <div id="wrapper">
+
+    {{> templates/menu}}
+
+    <div id="page-wrapper" class="gray-bg">
+        {{> templates/navbar}}
+
+        {{{block "header"}}}
+
+        {{{block "content"}}}
+
+        {{> templates/footer}}
+    </div>
+
+    {{> templates/tasks}}
+  </div>
+
+    {{> templates/config}}
+{{/partial}}
+{{> layout}}

@@ -1,0 +1,29 @@
+@import "imported";
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  color: theme-color(dark);
+}
+
+ol, ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+em{
+  font-style: normal;
+}
+
+big, .big {
+  font-size: 120% !important;
+  font-weight: normal;
+}
+
+.icon {
+  display: inline-block;
+  font-size: inherit;
+}

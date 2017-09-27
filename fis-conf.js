@@ -152,7 +152,7 @@ fis.match('app/views/(templates/**).hbs', {
 });
 
 fis.match('::package', {
-    spriter: fis.plugin('rift-precompile', {
+    prepackager: fis.plugin('rift-precompile', {
       to: './app/scripts/templates.js'
     })
 });

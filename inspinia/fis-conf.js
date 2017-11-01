@@ -1,5 +1,5 @@
 // 配置本地编译产出路径
-var localPath = "build";
+var localPath = "../biz-cms-controller/src/main/webapp/resources";
 fis.match('*', {
   deploy: fis.plugin('local-deliver', {
     to: localPath
@@ -16,6 +16,11 @@ fis.once('release:start', function clearPath(ret) {
   }
 });
 
+fis.match("app/scripts/preload.js", {
+  isMod: false,
+  packTo: false,
+  moduleId: ""
+});
 
 // copy jquery
 var pkg = require("./package.json")

@@ -1,0 +1,6 @@
+<input type="text" data-toggle="dropdown" readonly="readonly" {{#each options}}{{#is name ../defaultValue}}value="{{value}}"{{/is}}{{/each}}>
+<ul class="dropdown-menu" style="min-width: inherit; width: 100%;">
+  {{#each options}}
+    <li {{#is name ../defaultValue}}class="active"{{/is}}><a data-value="{{name}}" class="ellipsis" title="{{value}}" {{#in "description" ../extendedFields}}data-description="{{description}}"{{/in}}>{{value}}</a></li>
+  {{/each}}
+</ul>

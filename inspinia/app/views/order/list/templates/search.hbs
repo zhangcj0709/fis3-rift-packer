@@ -1,0 +1,25 @@
+<div class="row m-b-sm m-t-sm" id="tableSearchBar">
+  <div class="col-md-1">
+    <button type="button" data-root="tableview" data-role="refresh" class="btn btn-white"><i class="fa fa-refresh"></i> 刷新</button>
+  </div>
+  <form class="col-md-11" onsubmit="return false;" data-root="tableview" data-role="search">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white m-b-none dropdown-toggle" type="button" data-root="tableview" data-role="searchParam" data-name="status" data-value=""><span>状态</span> <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a data-value="un_paid">待支付</a></li>
+          <li><a data-value="paid">已支付</a></li>
+          <li><a data-value="shipped">已发货</a></li>
+          <li><a data-value="complete">完成</a></li>
+          <li class="divider"></li>
+          <li><a data-value="">全部订单</a></li>
+        </ul>
+      </div>
+      <span class="input-group-addon bg-muted">编码</span>
+      <input type="text" placeholder="Search" class="form-control" data-root="tableview" data-role="searchParam" name="orderNumber">
+      <span class="input-group-addon bg-muted">名称</span>
+      <input type="text" placeholder="Search" class="form-control" data-root="tableview" data-role="searchParam" name="orderName">
+      <span class="input-group-btn"><button type="submit" class="btn btn-primary m-b-none"><i class="fa fa-search"></i> 查询</button></span>
+    </div>
+  </form>
+</div>

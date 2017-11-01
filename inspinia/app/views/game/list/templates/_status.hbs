@@ -1,0 +1,8 @@
+{{#is status.name "onsale"}}
+  <span class="label label-primary">{{status.disName}}</span>
+{{else}}{{#is status.name "instock"}}
+  <span class="label label-warning">{{status.disName}}</span>
+{{else}}
+  <span class="label label-default">{{status.disName}}</span>
+{{/is}}
+{{/is}}

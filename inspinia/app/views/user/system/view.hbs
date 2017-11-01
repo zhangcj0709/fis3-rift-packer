@@ -1,0 +1,33 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>管理员</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>系统配置</a></li>
+        <li class="active"><strong>管理员</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div id="wrapper-content" class="wrapper wrapper-content animated fadeInRight">
+    <div class="row" id="adminList" data-roles="{{json roles}}">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="contact-box center-version" data-action="add">
+          <a style="height: 260px;"><i class="fa fa-user-plus" style="font-size: 80px; margin:80px 0;"></i></a>
+          <div class="contact-box-footer">
+            <div class="m-t-xs btn-group">
+              <a class="btn btn-xs btn-primary"><i class="fa fa-user-plus"></i> 新增管理员</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{> user/system/templates/list}}
+      {{> user/system/templates/modal}}
+    </div>
+  </div>
+  <input type="hidden" id="cmd-require" value="user/system/view">
+{{/partial}}
+{{> main_layout}}

@@ -1,0 +1,52 @@
+<table id="userTable" class="table table-striped va-middle" data-pages="{{pages}}" data-page-num="{{pageNum}}" data-page-size="{{pageSize}}" data-toggle="customized" data-type="collapseTable">
+  <thead>
+  <tr>
+    <th class="w50 text-center">ID</th>
+    <th class="w50 text-right"></th>
+    <th>用户名</th>
+    <th>昵称</th>
+    <th>手机</th>
+    <th>邮箱</th>
+    <th class="d-none" data-collapse="true">真实姓名:</th>
+    <th class="d-none" data-collapse="true">身份证号:</th>
+    <th class="d-none" data-collapse="true">性别:</th>
+    <th class="d-none" data-collapse="true">生日:</th>
+    <th class="w50 text-center">状态</th>
+    <th class="w100 text-right">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each list}}
+    <tr data-id="{{id}}" data-name="{{name}}">
+      <td class="w50 text-center">{{id}}</td>
+      <td class="w50 text-right"><img class="img-sm img-circle" src="{{headImg}}" alt=""></td>
+      <td>{{userName}}</td>
+      <td>{{nickName}}</td>
+      <td>{{mobile}}</td>
+      <td>{{email}}</td>
+      <td class="d-none" data-collapse="true">{{name}}</td>
+      <td class="d-none" data-collapse="true">{{idNo}}</td>
+      <td class="d-none" data-collapse="true">{{sex.disName}}</td>
+      <td class="d-none" data-collapse="true">{{formatDate birthday "yyyy-MM-dd"}}</td>
+      <td class="w50 text-center"> <span class="label label-primary">{{status.disName}}</span></td>
+      <td class="w100 text-right">
+        <div class="">
+        {{#is status.name "locked"}}
+          <button class="btn btn-warning btn-xs" type="button" data-action="unlock"><i class="fa fa-unlock"></i> 解锁</button>
+        {{else}}
+          <button class="btn btn-warning btn-xs" type="button" data-action="lock" {{#is status.name "valid"}}{{else}}disabled{{/is}}><i class="fa fa-lock"></i> 锁定</button>
+        {{/is}}
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+  {{> templates/_table-empty}}
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="999">
+      <div class="pull-right"><ul class="pagination"></ul></div>
+    </td>
+  </tr>
+  </tfoot>
+</table>

@@ -1,0 +1,26 @@
+<div id="tab-1" class="tab-pane active">
+  <form class="panel-body">
+    <div class="table-responsive">
+      <table id="categoryTable" class="table table-bordered table-stripped va-middle">
+        <thead>
+        <tr>
+          <th class="w50 text-center">ID</th>
+          <th>类目名称</th>
+          <th class="w100 text-center">状态</th>
+          <th class="w100 text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+          {{#each leafCategory}}
+            {{> game/config/templates/_category-table-tr}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group text-right">
+      <button class="btn btn-primary pull-left" type="button" data-action="add"><i class="fa fa-plus"></i> 新增类别</button>
+      <button class="btn btn-white" type="button" data-action="refresh"><i class="fa fa-refresh"></i> 刷新</button>
+    </div>
+  </form>
+</div>

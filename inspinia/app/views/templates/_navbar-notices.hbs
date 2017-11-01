@@ -1,0 +1,36 @@
+<li class="dropdown" id="topNotices" data-json="{{json topNotices}}">
+  <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+    <i class="fa fa-bell"></i>{{#if topNotices}}  <span class="label label-primary">{{size topNotices}}</span>{{/if}}
+  </a>
+
+  <ul class="dropdown-menu dropdown-alerts">
+    {{#if topNotices}}
+      {{#each topNotices}}
+        <li>
+          <a href="{{href}}">
+            <div>
+              {{{icon}}} {{{title}}}
+              <span class="pull-right text-muted small">{{fromNow time}}</span>
+            </div>
+          </a>
+        </li>
+        {{#if @last}}{{else}}<li class="divider"></li>{{/if}}
+      {{/each}}
+      {{!--<li class="divider"></li>
+      <li>
+        <div class="text-center link-block">
+          <a href="notifications.html">
+            <strong>See All Alerts</strong>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </div>
+      </li>--}}
+    {{else}}
+      <li>
+        <div class="text-center link-block">
+          <a><strong>暂无通知</strong></a>
+        </div>
+      </li>
+    {{/if}}
+  </ul>
+</li>

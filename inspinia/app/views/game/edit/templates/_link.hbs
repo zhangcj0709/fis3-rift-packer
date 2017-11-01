@@ -1,0 +1,24 @@
+<tr data-id="{{id}}">
+  <td>
+    {{#if id}}
+      <select class="form-control" name="platform" readonly>
+        {{#is platform "android"}}<option value="android" selected>安卓app下载地址</option>{{/is}}
+        {{#is platform "ios"}}<option value="ios" selected>苹果app下载地址</option>{{/is}}
+        {{#is platform "other"}}<option value="other" selected>其他下载地址</option>{{/is}}
+      </select>
+    {{else}}
+      <select class="form-control" name="platform">
+        <option value="">请选择类型</option>
+        <option value="android" {{#is platform "android"}}selected{{/is}}>安卓app下载地址</option>
+        <option value="ios" {{#is platform "ios"}}selected{{/is}}>苹果app下载地址</option>
+        <option value="other" {{#is platform "other"}}selected{{/is}}>其他下载地址</option>
+      </select>
+    {{/if}}
+  </td>
+  <td><input type="text" class="form-control" name="downloadUrl" value="{{downloadUrl}}"></td>
+  <td><input type="text" class="form-control" name="version" value="{{version}}"></td>
+  <td><input type="text" class="form-control" name="size" value="{{this.size}}"></td>
+  <td class="w100 text-center">
+    <button class="btn btn-white" type="button" data-action="delete"><i class="fa fa-trash"></i> 删除</button>
+  </td>
+</tr>

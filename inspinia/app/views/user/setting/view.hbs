@@ -1,0 +1,126 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>修改资料</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>我的信息</a></li>
+        <li class="active"><strong>修改资料</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div id="wrapper-content" class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="ibox float-e-margins" id="settingBox">
+          <div class="ibox-title">
+            <h5>修改基本信息</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content">
+            <form class="row">
+              <div class="col-sm-7 b-r">
+                <fieldset class="form-horizontal">
+                  <div class="form-group">
+                    <label class="control-label col-md-2">姓名</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" placeholder="输入真实姓名" name="name" value="{{user.name}}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">证件</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" placeholder="输入有效的证件号码" name="idNo" value="{{user.idNo}}">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-2">昵称</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" placeholder="输入昵称" name="nickName" value="{{user.nickName}}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">性别</label>
+                    <div class="col-md-10">
+                      <div class="radio radio-primary radio-inline"><input type="radio" name="sex" id="sex_male" value="male" {{#is user.sex "male"}}checked{{/is}}><label for="sex_male"> 男</label></div>
+                      <div class="radio radio-primary radio-inline"><input type="radio" name="sex" id="sex_female" value="female" {{#is user.sex "female"}}checked{{/is}}><label for="sex_female"> 女</label></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">手机</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" placeholder="输入常用手机号码" name="mobile" value="{{user.mobile}}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">邮箱</label>
+                    <div class="col-md-10">
+                      <input type="email" class="form-control" placeholder="输入常用电子邮箱" name="email" value="{{user.email}}">
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-sm-5">
+                {{#if user.headImg}}
+                  <h4>修改头像</h4>
+                  <p>点击头像上传照片</p>
+                {{else}}
+                  <h4>还没有头像?</h4>
+                  <p>点击图标上传照片:</p>
+                {{/if}}
+                <p class="text-center">
+                  <a data-toggle="customized" data-type="imageCropper" data-file-input="#headImgFile">
+                    {{#if user.headImg}}<img class="img-circle img-xl" src="{{user.headImg}}">{{else}}<i class="fa fa-sign-in big-icon"></i>{{/if}}
+                    <input type="hidden" name="headImg" value="{{user.headImg}}">
+                  </a>
+                  <input type="file" id="headImgFile" style="display: none;">
+                </p>
+
+              </div>
+              <div class="col-sm-12 clearfix">
+                <button class="btn btn-sm btn-primary pull-right" type="submit"><strong>修改资料</strong></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="ibox float-e-margins" id="resetPasswordBox">
+          <div class="ibox-title">
+            <h5>修改密码</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content">
+            <form>
+              <div class="form-group">
+                <label class="control-label">新密码</label>
+                <input type="password" class="form-control" name="newPassword">
+              </div>
+              <div class="form-group">
+                <label class="control-label">确认密码</label>
+                <input type="password" class="form-control" name="confirmNewPassword">
+                <span class="help-block m-b-none">再次输入新密码确保输入无误。</span>
+              </div>
+              <div class="clearfix">
+                <button class="btn btn-sm btn-primary pull-right" type="submit"><strong>修改密码</strong></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/partial}}
+{{> main_layout}}

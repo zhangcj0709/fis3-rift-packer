@@ -1,0 +1,24 @@
+<table id="skuTable" class="table table-bordered va-middle">
+  <thead>
+
+  <tr>
+    <th class="w50 text-center">ID</th>
+    {{#each skus}}{{#if @first}}
+      {{#each propsName}}{{> goods/edit/templates/_sku-table-th}}{{/each}}
+    {{/if}}{{/each}}
+    <th>售价</th>
+    <th>库存</th>
+    <th class="w100 text-center">状态</th>
+    <th class="w100 text-center">操作</th>
+  </tr>
+
+  </thead>
+  <tbody>
+  {{#each skus}}
+    {{> goods/edit/templates/_sku-table-tr}}
+  {{/each}}
+  </tbody>
+  <tfoot class="d-none">
+    {{> goods/edit/templates/_sku-table-tr-setting}}
+  </tfoot>
+</table>

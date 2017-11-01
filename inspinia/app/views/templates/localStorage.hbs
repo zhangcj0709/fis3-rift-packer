@@ -1,0 +1,6 @@
+<script>
+  if (localStorageSupport) {
+    var div = document.createElement("div");
+    div.innerHTML = "{{json this}}" || "[]";
+  }
+</script>

@@ -1,6 +1,5 @@
 require("helper")
 
-
 getCallback = (options)->
   callback = ->
   callback = options if $.isFunction(options)
@@ -30,64 +29,87 @@ ajaxJson = (url, data, options)->
     url: url
     success: (resp)->
       return gotoLogin() if resp.code is 401
-      getCallback(options).apply(resp, [options])
+      getCallback(options).apply(resp)
     error: (resp)->
       msgError resp
   }
   $.extend(ajaxOption, options) if $.isPlainObject(options)
   @dependence.ajax(ajaxOption) if @dependence.ajax
 
+ajaxJsonCallback = (next)->
+  _this = this
+  return msgFail(this.msg) and false unless this.code is 200
+  msgSuccess this.msg, ->
+    next.apply(_this) if $.isFunction(next)
+  return true
+
+
+content = (text)->
+  div = document.createElement("div")
+  div.innerHTML = text
+  return div
 
 msgAlert = (msg, options)->
   callback = getCallback(options)
-  if bootbox
-    op = $.extend(true, { message: msg, title: "", callback: callback, buttons:{ok:{label:"确定"}}, size: "small" }, options)
-    bootbox.alert(op)
+  if swal
+    swal($.extend(true, {title: " ", content: content(msg), button: true}, options)).then ->callback.apply(this, arguments)
   else
     callback(alert(msg))
+
+dangerAlert= (msg, options)->
+  callback = getCallback(options)
+  msgAlert(msg, $.extend({icon:"error", dangerMode: true, callback:callback}, options))
+
+warningAlert = (msg, options)->
+  callback = getCallback(options)
+  msgAlert(msg, $.extend({icon:"warning", callback:callback}, options))
 
 msgConfirm = (msg, options)->
   callback = getCallback(options)
-  if bootbox
-    _callback = (ok)->callback(ok)
-    op = $.extend(true, { message: msg, title: "", callback: _callback, buttons:{cancel:{label:"取消"},confirm: {label:"确定"}}, size: "small" }, options)
-    bootbox.confirm(op)
+  if swal
+    swal($.extend(true, {title: "", content: content(msg), buttons: ["取消", true]}, options)).then ->callback.apply(this, arguments)
   else
     callback(confirm(msg))
 
+dangerConfirm = (msg, options)->
+  callback = getCallback(options)
+  msgConfirm(msg, $.extend({icon:"warning", dangerMode: true, callback:callback}, options))
+
+warningConfirm = (msg, options)->
+  callback = getCallback(options)
+  msgConfirm(msg, $.extend({icon:"warning", callback:callback}, options))
+
 msgDisplay = (msg, options)->
   callback = getCallback(options)
-  if bootbox
-    op = $.extend(true, { message: msg, title: "", callback: callback, size: "small", delay: 1500}, options)
-    $dialog = bootbox.dialog(op)
-    setTimeout((->$dialog.modal("hide")), op.delay)
-    return $dialog
+  if swal
+    swal($.extend(true, {title: "", content: content(msg), button: false, timer: 2000}, options)).then ->callback.apply(this, arguments)
   else
     callback(alert(msg))
 
-msgError = (resp)->
-  return unless resp.readyState is 4 #屏蔽ajax未加载成功就被cancel了的报错
-  return if resp? && resp.status is 404 then msgAlert "请求页面丢失！", {title:"404错误"}
-  if resp? && resp.responseText then msgAlert(resp.responseText,{callback:(->console.warn(resp))}) else msgAlert("出错了,请重试!")
-
 msgSuccess = (msg, options)->
   callback = getCallback(options)
-  op = $.extend(true, {callback:callback}, options)
-  msg = '<i class="fa fa-check-circle primary"></i>' + (msg||'处理成功')
-  msgDisplay(msg, op)
+  msgDisplay(msg, $.extend({button: true, icon:"success", callback:callback}, options))
+
+msgInfo = (msg, options)->
+  callback = getCallback(options)
+  msgDisplay(msg, $.extend({button: true, icon:"info", callback:callback}, options))
 
 msgFail = (msg, options)->
   callback = getCallback(options)
-  op = $.extend(true, {callback:callback}, options)
-  msg = '<i class="fa fa-times-circle fail"></i>' + (msg||'处理失败')
-  msgDisplay(msg, op)
+  dangerAlert(msg, $.extend({callback:callback}, options))
 
+msgError = (resp)->
+  return unless resp.readyState is 4 #屏蔽ajax未加载成功就被cancel了的报错
+  ops = { icon: "error" }
+  if resp? && resp.status is 404 then msgFail("请求页面丢失！", {title:"404错误"})
+  if resp? && resp.responseText then msgFail(resp.responseText,{callback:(->console.warn(resp))}) else msgFail("出错了,请重试!")
 
 modal = (content, options)->
   callback = getCallback(options)
   if bootbox
-    op = $.extend(true, {callback:callback}, options)
-    modal = bootbox.createModal(content, op)
+    _callback = ->callback.apply(this, arguments) or true
+    op = $.extend(true, { message: content, title: "", size: "large" }, $.extend(options,{ callback: _callback}))
+    modal = bootbox.dialog(op)
     return modal
   else
     msgAlert "NOT SUPPORT!!!"
@@ -100,15 +122,21 @@ class util
   gotoLogin: gotoLogin
   redirect: redirect
   ajaxJson: ajaxJson
+  ajaxJsonCallback: ajaxJsonCallback
   msgAlert: msgAlert
+  dangerAlert: dangerAlert
+  warningAlert: warningAlert
   msgConfirm: msgConfirm
+  dangerConfirm: dangerConfirm
+  warningConfirm: warningConfirm
   msgDisplay: msgDisplay
   msgError: msgError
+  msgInfo: msgInfo
   msgSuccess: msgSuccess
   msgFail: msgFail
   modal: modal
   fn: @prototype
   dependence: jQuery
 
-module.exports = new util()
+module.exports = window.myUtils  = new util()
 

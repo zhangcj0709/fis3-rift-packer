@@ -1,0 +1,62 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>游戏推荐</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>游戏管理</a></li>
+        <li class="active"><strong>游戏推荐</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins" id="recommendGamesBox">
+          <div class="ibox-title">
+            <h5>推荐游戏</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content p-none">
+              {{#if recommendGames}}
+                {{#with recommendGames}}
+                  {{> game/recommendList/templates/table}}
+                {{/with}}
+              {{else}}
+                {{> game/recommendList/templates/table-empty}}
+              {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins" id="homepageGamesBox">
+          <div class="ibox-title">
+            <h5>首页特推游戏 <small class="va-text-bottom text-muted">以下游戏将显示在PC首页和手机游戏板块首页的游戏列表中</small></h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content p-none">
+              {{#if homepageGames}}
+                {{#with homepageGames}}
+                  {{> game/recommendList/templates/table}}
+                {{/with}}
+              {{else}}
+                {{> game/recommendList/templates/table-empty}}
+              {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/partial}}
+{{> main_layout}}

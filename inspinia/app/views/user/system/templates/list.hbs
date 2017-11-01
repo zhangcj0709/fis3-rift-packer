@@ -1,0 +1,28 @@
+{{#each admins}}
+  <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="contact-box center-version" data-id="{{id}}" data-json="{{json this}}">
+      <a style="height: 260px; overflow: hidden;">
+        <img alt="image" class="img-circle" src="{{headImg}}">
+        <h3 class="m-b-xs"><strong>{{name}}</strong> {{#is sex.name "male"}}<i class="fa fa-mars"></i>{{/is}}{{#is sex.name "female"}}<i class="fa fa-venus"></i>{{/is}}</h3>
+        <div class="font-bold">{{#if roles}}{{#each roles}} 【{{name}}】 {{/each}}{{else}}<br>{{/if}}</div>
+        <div class="m-t-md">
+          {{#if nickName}}<strong>昵称：{{nickName}}</strong>{{/if}}<br>
+          {{#if mobile}}<i class="fa fa-phone"> </i> {{mobile}}{{/if}}<br>
+          {{#if email}}<i class="fa fa-envelope"> </i> {{email}}{{/if}}<br>
+        </div>
+      </a>
+      <div class="contact-box-footer">
+        <div class="m-t-xs btn-group">
+          <button class="btn btn-xs btn-primary" type="button" data-action="edit"><i class="fa fa-edit"></i> 修改</button>
+          {{#is status.name "locked"}}
+            <button class="btn btn-xs btn-warning" type="button" data-action="unlock"><i class="fa fa-unlock"></i> 解锁</button>
+          {{else}}
+            <button class="btn btn-xs btn-warning" type="button" data-action="lock" {{#is status.name "valid"}}{{else}}disabled{{/is}}><i class="fa fa-lock"></i> 锁定</button>
+          {{/is}}
+          <button class="btn btn-xs btn-danger" type="button" data-action="delete"><i class="fa fa-trash"></i> 删除</button>
+          {{!--<button class="btn btn-xs btn-info" type="button" data-action="sendMessage"><i class="fa fa-comment-o"></i> 发送消息</button>--}}
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}

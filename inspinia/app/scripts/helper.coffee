@@ -45,9 +45,14 @@ Handlebars.registerHelper "notin",(a,arrayStr,options) ->
   return options.fn(this)
 
 Handlebars.registerHelper "in",(a,arrayStr,options) ->
-  array =  arrayStr.split(",")||[]
+  if typeof arrayStr is "string"
+    array =  arrayStr.split(",")
+  else if typeof arrayStr is "object" and arrayStr.length > 0
+    array = arrayStr
+  else
+    array = []
   for item in array
-    if a is item
+    if "#{a}" is "#{item}"
       return options.fn(this)
   return options.inverse(this)
 
@@ -239,8 +244,45 @@ Handlebars.registerHelper "eachForStr",(str, options)->
   arr = str.split(",")
   result = new Array()
   for val in arr
-    result.push({value:val}) if val
+    result.push(val) if val
   return Handlebars.helpers["each"](result, options)
+
+Handlebars.registerHelper "eachForJson",(str, options)->
+  str = str + ""
+  return "" if str is ""
+  try
+    obj = JSON.parse(str)
+  catch e
+    return ""
+  if typeof obj is "object" and obj.length
+    return Handlebars.helpers["each"](obj, options)
+  else if typeof obj is "object"
+    res = []
+    for name of obj
+      res.push({key:name,value:obj[name]})
+    return Handlebars.helpers["each"](res, options)
+  return ""
+
+
+Handlebars.registerHelper "pickByIndex", (index, arrStr, defaultValue, options)->
+  index = parseInt(index) || 0
+  defaultValue = if arguments.length >= 4 then "#{defaultValue}" else ""
+  if(!isNaN(index) && arrStr)
+    array = "#{arrStr}".split(",")
+    resIndex = index % array.length
+    if (!isNaN(resIndex))
+      return array[resIndex];
+  return defaultValue
+
+Handlebars.registerHelper "pickByRandom", (arrStr, defaultValue, options)->
+  defaultValue = if arguments.length >= 3 then "#{defaultValue}" else ""
+  if(!isNaN(index) && arrStr)
+    array = "#{arrStr}".split(",")
+    resIndex = parseInt(Math.random() * array.length)
+    if (!isNaN(resIndex))
+      return array[resIndex];
+  return defaultValue
+
 
 Handlebars.registerHelper "subStr",(str) ->
   return "" if str is null
@@ -283,13 +325,17 @@ Handlebars.registerHelper "fromNow", (date, options)->
   days = parseInt(gapTime/(1000*60*60*24));
   hours = parseInt(gapTime/(1000*60*60));
   minutes = parseInt(gapTime/(1000*60));
-  console.warn years,months,days,hours,minutes
+  console.log gapTime,years,months,days,hours,minutes
+  return "#{if gapTime < 0 then '刚刚' else '现在'}" unless gapTime>=(1000*60) or gapTime<=(-1000*60)
+  return "#{Math.abs(minutes)}#{if gapTime < 0 then '分钟前' else '分钟后'}" unless gapTime>=(1000*60*60) or gapTime<=(-1000*60*60)
+  return "#{Math.abs(hours)}#{if gapTime < 0 then '小时前' else '小时后'}" unless gapTime>=(1000*60*60*24) or gapTime<=(-1000*60*60*24)
+  return "#{Math.abs(days)}#{if gapTime < 0 then '天前' else '天后'}" unless gapTime>=(1000*60*60*24*30) or gapTime<=(-1000*60*60*24*30)
+  return "#{Math.abs(months)}#{if gapTime < 0 then '月前' else '月后'}" unless gapTime>=(1000*60*60*24*30*365) or gapTime<=(-1000*60*60*24*30*365)
   return "#{Math.abs(years)}#{if gapTime < 0 then '年前' else '年后'}" unless years is 0
-  return "#{Math.abs(months)}#{if gapTime < 0 then '月前' else '月后'}" unless months is 0
-  return "#{Math.abs(days)}#{if gapTime < 0 then '天前' else '天后'}" unless days is 0
-  return "#{Math.abs(hours)}#{if gapTime < 0 then '小时前' else '小时后'}" unless hours is 0
-  return "#{Math.abs(minutes)}#{if gapTime < 0 then '分钟前' else '分钟后'}" unless minutes is 0
-  return "#{if gapTime < 0 then '刚刚' else '现在'}"
+  return ""
+
+
+
 
 
 #jquery 扩展函数------------------------------------------------
@@ -335,6 +381,21 @@ $.fn.serializeObject = ()->
       objectData[this.name] = value
   return objectData
 
+$.fn.serializeObjectByName = ()->
+  objectData = {}
+  $this = $(this)
+  this.find("[name]").each ->
+    return true if (this.type is "checkbox" or this.tpye is "radio") and this.checked isnt on
+    name = $(this).attr("name")
+    value = $(this).val()
+    if name
+      if objectData.hasOwnProperty(name)
+        objectData[name] = [objectData[name]] unless $.isArray(objectData[name])
+        objectData[name].push(value)
+      else
+        objectData[name] = value
+  return objectData
+
 $.isValidTel = (value)->
   isTel = true
   pattern=/(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{7,8}$)|(^[0-9]{3,4}\-[0-9]{7,8}\-[0-9]{3,5}$)|(^[0-9]{7,8}\-[0-9]{3,5}$)|(^\([0-9]{3,4}\)[0-9]{7,8}$)|(^\([0-9]{3,4}\)[0-9]{7,8}\-[0-9]{3,5}$)|(^1[3,4,5,7,8]{1}[0-9]{9}$)/
@@ -344,13 +405,24 @@ $.isValidEmail = (value)->
   return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)
 
 $.isMobileClient = ->
-  return (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))
+  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i)
 
 $.isWeiXinClient = ->
   return /MicroMessenger/i.test(window.navigator.userAgent)
 
 $.isAndroid = ->
-  return navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1  #android终端或uc浏览器
+  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Linux/i)  #android终端或uc浏览器
+
+$.isIos = ->
+  return navigator.userAgent.match(/ios/i) || navigator.userAgent.match(/iphone/i) || navigator.userAgent.match(/ipad/i) || navigator.userAgent.match(/ipod/i) ;
 
 $.isEmpty = (obj)->
   return obj is null or obj is undefined or obj is ""
+
+$.accMul = (arg1,arg2)->
+  m=0
+  s1=arg1.toString()
+  s2=arg2.toString()
+  m += s1.split(".")[1].length if s1.split(".")[1] and s1.split(".")[1].length
+  m += s2.split(".")[1].length if s2.split(".")[1] and s2.split(".")[1].length
+  return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)

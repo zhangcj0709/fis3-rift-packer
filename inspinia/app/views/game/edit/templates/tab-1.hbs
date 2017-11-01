@@ -1,0 +1,86 @@
+<div id="tab-1" class="tab-pane active">
+  <form class="panel-body" onsubmit="return false;">
+    <div class="row d-flex">
+      <div class="col-xs-1 w200">
+        <h4>游戏图标:</h4>
+        <p class="text-center">
+          <a data-toggle="customized" data-type="imageUpload" data-max-files="1">
+            {{#if game.logoUrlId}}
+              <img src="{{game.logoUrl}}" class="img-lg img-rounded">
+            {{else}}
+              <i class="fa fa-cloud-upload big-icon"></i>
+            {{/if}}
+            <label class="d-block m-t-sm">上传图片</label>
+            <input type="hidden" name="logoUrlId" value="{{game.logoUrlId}}">
+          </a>
+        </p>
+      </div>
+      <div class="col-xs-12">
+        <fieldset class="form-horizontal">
+          <div class="form-group"><label class="col-sm-2 control-label">游戏名称:</label>
+            <div class="col-sm-10"><input type="text" class="form-control" placeholder="输入游戏名称" name="name" value="{{game.name}}"></div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">游戏厂商:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="gameCompany" data-toggle="select2">
+                <option value="">请选择厂商</option>
+                {{#each companies}}
+                  <option value="{{id}}" {{#eq this.id game.gameCompany}}selected{{/eq}}>{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">游戏分类:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="cid" data-toggle="select2">
+                <option value="">请选择分类</option>
+                {{#each categorys}}
+                  <option value="{{id}}" {{#eq this.id game.cid}}selected{{/eq}}>{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">简介:</label>
+            <div class="col-sm-10">
+              <input id="summarize" type="hidden" name="summarize" value="{{game.summarize}}">
+              <div class="summernote" data-toggle="summernote" data-toolbar="false" data-placeholder="请输入简介" data-height="120" data-save-target="#summarize" data-save-type="text">{{game.summarize}}</div>
+            </div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">标签:</label>
+            <div class="col-sm-10">
+              <input class="form-control tagsinput" type="text" name="tags" value="{{game.tags}}" data-toggle="customized" data-type="tagsinput" data-lov-type="TAG_KEY_WORD_COLOR" data-field="name">
+            </div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">客户端类型:</label>
+            <div class="col-sm-10">
+              <div class="radio radio-primary radio-inline"><input type="radio" name="type" id="type_mobile_app" value="mobile_app" {{#is game.type "mobile_app"}}checked{{/is}}><label for="type_mobile_app">app</label></div>
+              <div class="radio radio-primary radio-inline"><input type="radio" name="type" id="type_mobile_h5" value="mobile_h5" {{#is game.type "mobile_h5"}}checked{{/is}}><label for="type_mobile_h5">h5</label></div>
+              <div class="radio radio-primary radio-inline"><input type="radio" name="type" id="type_other" value="other" {{#is game.type "other"}}checked{{/is}}><label for="type_other">其他</label></div>
+            </div>
+          </div>
+          <div class="form-group {{#is game.type "mobile_h5"}}{{else}}d-none{{/is}}"><label class="col-sm-2 control-label">页游地址:</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" name="gameWebsite" value="{{game.gameWebsite}}" {{#is game.type "mobile_h5"}}{{else}}disabled{{/is}}>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group text-right">
+      {{#if game.id}}
+        <div class="pull-left">
+          {{#is game.status.name "onsale"}}
+            <button class="btn btn-danger" type="button" data-action="offSale" data-status="{{game.status.name}}"><i class="fa fa-power-off"></i> 下架</button>
+          {{else}}
+            <button class="btn btn-warning" type="button" data-action="onSale" data-status="{{game.status.name}}"><i class="fa fa-power-off"></i> 上架</button>
+          {{/is}}
+          <button class="btn btn-info btn-outline" type="button" data-href="/game/detail/{{game.id}}"><i class="fa fa-eye"></i> 查看</button>
+        </div>
+      {{/if}}
+      <button class="btn btn-white" type="button" data-action="refresh"><i class="fa fa-refresh"></i> 刷新</button>
+      <button class="btn btn-primary" type="button" data-action="submit">保存修改</button>
+    </div>
+    <input type="hidden" name="id" value="{{game.id}}">
+  </form>
+</div>

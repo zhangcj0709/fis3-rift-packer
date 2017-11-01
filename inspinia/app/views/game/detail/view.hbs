@@ -1,0 +1,167 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>游戏详情</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>游戏管理</a></li>
+        <li class="active"><strong>游戏详情</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox product-detail">
+          <div class="ibox-content">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="product-images va-middle d-none">
+                  {{#if game.picUrls}}
+                    {{#each game.picUrls}}
+                      {{#is enable "Y"}}
+                        <div class="va-middle text-center"><img class="d-inline-block img-preview" src="{{picUrl}}" alt="..." style="max-height: 365px; max-width: 100%; width: auto; height: auto;"></div>
+                      {{/is}}
+                    {{/each}}
+                  {{else}}
+                    <div><div class="image-imitation">[IMAGE NOT FINDED]</div></div>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="d-flex" style="justify-content: space-between;">
+                  <div class="d-inline-block m-r-sm">
+                    <h2 class="font-bold m-b-xs">{{game.name}}</h2>
+                    <small>类目：{{game.cname}} <span class="m-l-md">{{#eachForStr game.tags}}{{this}}{{#if @last}}{{else}} / {{/if}}{{/eachForStr}}</span></small>
+                    <br><small id="starLevel" class="score-stars" data-score="{{game.starLevel}}">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </small>
+                    <div class="m-t-md">
+                      <small>
+                        客户端类型：{{game.type.disName}} {{#if game.gameWebsite}}<a class="m-l-md" href="{{game.gameWebsite}}">前往页游地址 <i class="fa fa-hand-o-right"></i></a>{{/if}}
+                      </small>
+                    </div>
+                  </div>
+                  <img class="img-rounded img-lg pull-right" src="{{game.logoUrl}}" alt="">
+                </div>
+                <hr>
+
+                <h4>游戏简介</h4>
+                <div class="small text-muted well p-xs m-b-xs" style="height: 96px; overflow-y:auto;">
+                    {{{game.summarize}}}
+                </div><p><a class="text-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-eye"></i> 查看图文详情</a></p>
+
+                <dl class="small m-t-md">
+                  <dt>厂商</dt>
+                  <dd><a>{{game.gameCompanyName}}</a></dd>
+                </dl>
+                <hr>
+                <div class="text-right">
+                  <div class="btn-group pull-left">
+                    {{#is game.status.name "onsale"}}
+                      <button class="btn btn-danger btn-outline btn-sm" type="button" data-action="offSale" data-status="{{game.status.name}}"><i class="fa fa-power-off"></i> 下架</button>
+                    {{else}}
+                      <button class="btn btn-warning btn-outline btn-sm" type="button" data-action="onSale" data-status="{{game.status.name}}"><i class="fa fa-power-off"></i> 上架</button>
+                    {{/is}}
+                    <button class="btn btn-info btn-outline btn-sm" type="button" data-href="/game/edit?id={{game.id}}"><i class="fa fa-edit"></i> 编辑</button>
+                  </div>
+                  <div class="btn-group">
+                    <div class="btn-group dropdown">
+                      <button class="btn btn-warning btn-outline btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-star-o"></i> 评分</button>
+                      <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        {{#eachForStr "1,2,3,4,5"}}
+                        <li><a class="score-stars" data-action="score" data-score="{{this}}">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span class="pull-right">{{this}}星</span>
+                        </a></li>
+                        {{/eachForStr}}
+                      </ul>
+                    </div>
+                    <button class="btn btn-primary btn-sm {{#is game.recommend "Y"}}{{else}}btn-outline{{/is}}" type="button" data-action="recommend" data-type="homepage_recommend"><i class="fa fa-thumbs-o-up"></i> 推荐</button>
+                    <button class="btn btn-primary btn-sm {{#is game.homeRecommend "Y"}}{{else}}btn-outline{{/is}}" type="button" data-action="recommend" data-type="homepage_ad"><i class="fa fa-home"></i> 首页特推</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {{#if versions}}
+            <div id="gameVersions" class="collapse white-bg">
+              <table class="table table-bordered table-striped va-middle m-b-none">
+                <thead>
+                <tr>
+                  <th class="w200">平台</th>
+                  <th>下载地址</th>
+                  <th class="w150 text-center">版本号</th>
+                  <th class="w150 text-center">安装包大小</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                {{#each versions}}
+                    <td>
+                      {{#is platform "android"}}安卓app下载地址{{/is}}
+                      {{#is platform "ios"}}苹果app下载地址{{/is}}
+                      {{#is platform "other"}}其他下载地址{{/is}}
+                    </td>
+                    <td>{{downloadUrl}}</td>
+                    <td class="w150 text-center">{{version}}</td>
+                    <td class="w150 text-center">{{this.size}}</td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+          {{/if}}
+          <div class="ibox-footer">
+            <div class="clearfix">
+              {{#if versions}}<a class="btn btn-primary btn-xs" role="button" data-toggle="collapse" href="#gameVersions" aria-expanded="false" aria-controls="gameVersions">查看游戏载地址</a>{{/if}}
+              {{#is game.status.name "onsale"}}
+                {{#if game.onSaleTime}}<span class="pull-right m-l-lg">上架时间 - <i class="fa fa-clock-o"></i> {{formatDate game.onSaleTime "yyyy.MM.dd HH:mm"}}</span>{{/if}}
+              {{else}}
+                {{#if game.saleOutTime}}<span class="pull-right m-l-lg">下架时间 - <i class="fa fa-clock-o"></i> {{formatDate game.saleOutTime "yyyy.MM.dd HH:mm"}}</span>{{/if}}
+              {{/is}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{game.name}}</h4>
+          </div>
+          <div class="modal-body article">
+              {{{game.content}}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" name="gameId" value="{{game.id}}">
+  <input type="hidden" id="cmd-require" value="game/detail/view">
+{{/partial}}
+{{#partial "css-append"}}
+  <link href="/app/plugins/slick/slick.css" rel="stylesheet">
+  <link href="/app/plugins/slick/slick-theme.css" rel="stylesheet">
+{{/partial}}
+{{#partial "js-append"}}
+  <script src="/app/plugins/slick/slick.min.js"></script>
+{{/partial}}
+{{> main_layout}}

@@ -1,0 +1,27 @@
+<tr data-sku-id="{{id}}">
+  <td class="w50 text-center">
+    <a href="javascript:void(0)" data-action="checkAllRows">全选</a>
+  </td>
+  {{#each skus}}{{#if @first}}
+    {{#each propsName}}{{> goods/edit/templates/_sku-table-td-setting}}{{/each}}
+  {{/if}}{{/each}}
+  <td>
+    <div class="input-group input-group-sm full-width">
+      <input type="number" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-warning" type="button" data-action="setColumnCells">设置</button>
+      </span>
+    </div>
+  </td>
+  <td>
+    <div class="input-group input-group-sm full-width">
+      <input type="number" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-warning" type="button" data-action="setColumnCells">设置</button>
+      </span>
+    </div>
+  </td>
+  <td class="w200" colspan="2">
+      <button class="btn btn-warning btn-sm full-width" type="button" data-action="setCells">设置全部</button>
+  </td>
+</tr>

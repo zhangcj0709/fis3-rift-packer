@@ -192,7 +192,7 @@ $(window).bind("resize", function () {
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
-    if (localStorageSupport()) {
+    if (localStorageSupport) {
 
         var collapse = localStorage.getItem("collapse_menu");
         var fixedsidebar = localStorage.getItem("fixedsidebar");
@@ -239,9 +239,9 @@ $(document).ready(function () {
 });
 
 // check if browser support HTML5 local storage
-function localStorageSupport() {
+localStorageSupport = (function()  {
     return (('localStorage' in window) && window['localStorage'] !== null)
-}
+})();
 
 // For demo purpose - animation css script
 function animationHover(element, animation) {
@@ -297,18 +297,15 @@ function WinMove() {
 
 // Config box
 // Enable/disable fixed top navbar
-$('#fixednavbar').click(function (){
+$('#fixednavbar').on("click", function (){
   if ($('#fixednavbar').is(':checked')){
     $(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
     $("body").removeClass('boxed-layout');
     $("body").addClass('fixed-nav');
     $('#boxedlayout').prop('checked', false);
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("boxedlayout",'off');
-    }
-
-    if (localStorageSupport){
       localStorage.setItem("fixednavbar",'on');
     }
   } else{
@@ -317,29 +314,23 @@ $('#fixednavbar').click(function (){
     $("body").removeClass('fixed-nav-basic');
     $('#fixednavbar2').prop('checked', false);
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("fixednavbar",'off');
-    }
-
-    if (localStorageSupport){
       localStorage.setItem("fixednavbar2",'off');
     }
   }
 });
 
 // Enable/disable fixed top navbar
-$('#fixednavbar2').click(function (){
+$('#fixednavbar2').on("click", function (){
   if ($('#fixednavbar2').is(':checked')){
     $(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
     $("body").removeClass('boxed-layout');
     $("body").addClass('fixed-nav').addClass('fixed-nav-basic');
     $('#boxedlayout').prop('checked', false);
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("boxedlayout",'off');
-    }
-
-    if (localStorageSupport){
       localStorage.setItem("fixednavbar2",'on');
     }
   } else {
@@ -347,17 +338,15 @@ $('#fixednavbar2').click(function (){
     $("body").removeClass('fixed-nav').removeClass('fixed-nav-basic');
     $('#fixednavbar').prop('checked', false);
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("fixednavbar2",'off');
-    }
-    if (localStorageSupport){
       localStorage.setItem("fixednavbar",'off');
     }
   }
 });
 
 // Enable/disable fixed sidebar
-$('#fixedsidebar').click(function (){
+$('#fixedsidebar').on("click", function (){
   if ($('#fixedsidebar').is(':checked')){
     $("body").addClass('fixed-sidebar');
     $('.sidebar-collapse').slimScroll({
@@ -365,7 +354,7 @@ $('#fixedsidebar').click(function (){
       railOpacity: 0.9
     });
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("fixedsidebar",'on');
     }
   } else{
@@ -373,19 +362,19 @@ $('#fixedsidebar').click(function (){
     $('.sidebar-collapse').attr('style', '');
     $("body").removeClass('fixed-sidebar');
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("fixedsidebar",'off');
     }
   }
 });
 
 // Enable/disable collapse menu
-$('#collapsemenu').click(function (){
+$('#collapsemenu').on("click", function (){
   if ($('#collapsemenu').is(':checked')){
     $("body").addClass('mini-navbar');
     SmoothlyMenu();
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("collapse_menu",'on');
     }
 
@@ -393,14 +382,14 @@ $('#collapsemenu').click(function (){
     $("body").removeClass('mini-navbar');
     SmoothlyMenu();
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("collapse_menu",'off');
     }
   }
 });
 
 // Enable/disable boxed layout
-$('#boxedlayout').click(function (){
+$('#boxedlayout').on("click", function (){
   if ($('#boxedlayout').is(':checked')){
     $("body").addClass('boxed-layout');
     $('#fixednavbar').prop('checked', false);
@@ -411,99 +400,106 @@ $('#boxedlayout').click(function (){
     $(".footer").removeClass('fixed');
     $('#fixedfooter').prop('checked', false);
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("fixednavbar",'off');
-    }
-
-    if (localStorageSupport){
       localStorage.setItem("fixednavbar2",'off');
-    }
-
-    if (localStorageSupport){
       localStorage.setItem("fixedfooter",'off');
-    }
-
-
-    if (localStorageSupport){
       localStorage.setItem("boxedlayout",'on');
     }
   } else{
     $("body").removeClass('boxed-layout');
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("boxedlayout",'off');
     }
   }
 });
 
 // Enable/disable fixed footer
-$('#fixedfooter').click(function (){
+$('#fixedfooter').on("click", function (){
   if ($('#fixedfooter').is(':checked')){
     $('#boxedlayout').prop('checked', false);
     $("body").removeClass('boxed-layout');
     $(".footer").addClass('fixed');
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("boxedlayout",'off');
-    }
-
-    if (localStorageSupport){
       localStorage.setItem("fixedfooter",'on');
     }
   } else{
     $(".footer").removeClass('fixed');
 
-    if (localStorageSupport){
+    if (localStorageSupport) {
       localStorage.setItem("fixedfooter",'off');
     }
   }
 });
 
 // SKIN Select
-$('.spin-icon').click(function (){
+$('.spin-icon').on("click", function (){
   $(".theme-config-box").toggleClass("show");
 });
 
 // Default skin
-$('.s-skin-0').click(function (){
+$('.s-skin-0').on("click", function (event){
+  event.preventDefault();
   $("body").removeClass("skin-1");
   $("body").removeClass("skin-2");
   $("body").removeClass("skin-3");
+  if (localStorageSupport) {
+    localStorage.setItem("skinname",'');
+  }
 });
 
 // Blue skin
-$('.s-skin-1').click(function (){
+$('.s-skin-1').on("click", function (event){
+  event.preventDefault();
   $("body").removeClass("skin-2");
   $("body").removeClass("skin-3");
   $("body").removeClass("md-skin");
   $("body").addClass("skin-1");
+  if (localStorageSupport) {
+    localStorage.setItem("skinname",'skin-1');
+  }
 });
 
 // Inspinia ultra skin
-$('.s-skin-2').click(function (){
+$('.s-skin-2').on("click", function (event){
+  event.preventDefault();
   $("body").removeClass("skin-1");
   $("body").removeClass("skin-3");
   $("body").removeClass("md-skin");
   $("body").addClass("skin-2");
+  if (localStorageSupport) {
+    localStorage.setItem("skinname",'skin-2');
+  }
 });
 
 // Yellow skin
-$('.s-skin-3').click(function (){
+$('.s-skin-3').on("click", function (event){
+  event.preventDefault();
   $("body").removeClass("skin-1");
   $("body").removeClass("skin-2");
   $("body").removeClass("md-skin");
   $("body").addClass("skin-3");
+  if (localStorageSupport) {
+    localStorage.setItem("skinname",'skin-3');
+  }
 });
 
 // MATERIAL DESIGN skin
-$('.md-skin').click(function (){
+$('.s-md-skin').on("click", function (event){
+  event.preventDefault();
   $("body").removeClass("skin-1");
   $("body").removeClass("skin-2");
   $("body").removeClass("skin-3");
   $("body").addClass("md-skin");
+  if (localStorageSupport) {
+    localStorage.setItem("skinname",'md-skin');
+  }
 });
 
-if (localStorageSupport){
+if (localStorageSupport) {
   var collapse = localStorage.getItem("collapse_menu");
   var fixedsidebar = localStorage.getItem("fixedsidebar");
   var fixednavbar = localStorage.getItem("fixednavbar");
@@ -530,3 +526,21 @@ if (localStorageSupport){
     $('#fixedfooter').prop('checked','checked')
   }
 }
+
+
+
+//菜单激活当前页面对应的链接
+$("#side-menu").find("[href='"+location.pathname+"']").parents("li").addClass("active").siblings().removeClass("active");
+
+//页面内容载入的渐变效果
+$.fn.extend({
+  animateCss: function (animationName) {
+    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+    this.addClass('animated ' + animationName).one(animationEnd, function() {
+      $(this).removeClass('animated ' + animationName);
+    });
+    return this;
+  }
+});
+$('.wrapper.wrapper-content').animateCss("fadeInRight");
+

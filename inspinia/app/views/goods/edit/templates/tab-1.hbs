@@ -1,0 +1,62 @@
+<div id="tab-1" class="tab-pane active">
+  <form class="panel-body" onsubmit="return false;">
+    <div class="row d-flex">
+      <div class="col-xs-1 w200">
+        <h4>商品图标:</h4>
+        <p class="text-center">
+          <a data-toggle="customized" data-type="imageUpload" data-max-files="1">
+            {{#if goods.thumbnailId}}
+              <img src="{{goods.thumbnail}}" class="img-lg img-rounded">
+            {{else}}
+              <i class="fa fa-cloud-upload big-icon"></i>
+            {{/if}}
+            <label class="d-block m-t-sm">上传图片</label>
+            <input type="hidden" name="thumbnailId" value="{{goods.thumbnailId}}">
+          </a>
+        </p>
+      </div>
+      <div class="col-xs-12">
+        <fieldset class="form-horizontal">
+          <div class="form-group"><label class="col-sm-2 control-label">商品名称:</label>
+            <div class="col-sm-10"><input type="text" class="form-control" placeholder="输入商品名称" name="title" value="{{goods.title}}"></div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">商品分类:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="cid" data-toggle="select2">
+                <option value="">请选择分类</option>
+                {{#each categorys}}
+                  <option value="{{id}}" {{#eq this.id goods.cid}}selected{{/eq}}>{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="col-sm-2 control-label">商品编码:</label>
+            <div class="col-sm-10"><input type="text" class="form-control" placeholder="输入商品编码" name="goodsNo" value="{{goods.goodsNo}}"></div>
+          </div>
+
+          <div class="form-group"><label class="col-sm-2 control-label">标签:</label>
+            <div class="col-sm-10">
+              <input class="form-control tagsinput" type="text" name="tags" value="{{goods.tags}}" data-toggle="tagsinput">
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group text-right">
+      {{#if goods.id}}
+        <div class="pull-left">
+          {{#is goods.status.name "onsale"}}
+            <button class="btn btn-danger" type="button" data-action="offSale" data-status="{{goods.status.name}}"><i class="fa fa-power-off"></i> 下架</button>
+          {{else}}
+            <button class="btn btn-warning" type="button" data-action="onSale" data-status="{{goods.status.name}}"><i class="fa fa-power-off"></i> 上架</button>
+          {{/is}}
+          <button class="btn btn-info btn-outline" type="button" data-href="/goods/detail/{{goods.id}}"><i class="fa fa-eye"></i> 查看</button>
+        </div>
+      {{/if}}
+      <button class="btn btn-white" type="button" data-action="refresh"><i class="fa fa-refresh"></i> 刷新</button>
+      <button class="btn btn-primary" type="button" data-action="submit">保存修改</button>
+    </div>
+    <input type="hidden" name="id" value="{{goods.id}}">
+  </form>
+</div>

@@ -1,0 +1,110 @@
+
+@mixin setSkinPrimaryColor($primary) {
+  /*link*/
+  a {
+    color: $primary;
+    &:hover {
+      color: darken($primary, 15%);
+    }
+  }
+  /*dropdown*/
+  .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+    background-color: $primary;
+  }
+  /*button*/
+  .btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: #FFFFFF;
+  }
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary.active:hover, .btn-primary.active:focus {
+    background-color: darken($primary, 3%);
+    border-color: darken($primary, 3%);
+    color: #FFFFFF;
+  }
+  .btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled]:active, .btn-primary.active[disabled], fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
+    background-color: lighten($primary, 4%);
+    border-color: lighten($primary, 4%);
+    color: #FFFFFF;
+  }
+  .btn-primary.btn-outline {
+    background-color: transparent;
+    color: $primary;
+  }
+
+  /*form-control*/
+  .form-control:focus, .single-line:focus {
+    border-color: $primary;
+  }
+
+  /*radio & checkbox*/
+  .checkbox-primary input[type="checkbox"]:checked + label::before,
+  .checkbox-primary input[type="radio"]:checked + label::before {
+    background-color: $primary;
+    border-color: $primary;
+  }
+  .radio-primary input[type="radio"] + label::after {
+    background-color: $primary;
+  }
+  .radio-primary input[type="radio"]:checked + label::before {
+    border-color: $primary;
+  }
+  .radio-primary input[type="radio"]:checked + label::after {
+    background-color: $primary;
+  }
+
+  /*label*/
+  .label-primary, .badge-primary {
+    background-color: $primary;
+  }
+
+  /*onoffswitch*/
+  .onoffswitch-label {
+    border-color: $primary;
+  }
+  .onoffswitch-inner:before {
+    background-color: $primary;
+  }
+  .onoffswitch-switch {
+    border-color: $primary;
+  }
+
+  /*dropzone*/
+  .dropzone {
+    border-color: $primary;
+  }
+
+  /*select2*/
+  .select2-container--default.select2-container--open .select2-selection--single,
+  .select2-container--default.select2-container--open .select2-selection--multiple,
+  .select2-container--default.select2-container--focus .select2-selection--single,
+  .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: $primary;
+  }
+  .select2-container--default .select2-selection--single,
+  .select2-container--default .select2-selection--multiple {
+    .select2-selection__choice {
+      background-color: $primary;
+    }
+  }
+  .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: $primary;
+  }
+  .select2-dropdown {
+    border-color: $primary;
+  }
+  .ui-select-container.ui-select-bootstrap .ui-select-choices-row.active > a {
+    background-color: $primary;
+  }
+
+  /*Slick Carousel */
+  .slick-prev:before,
+  .slick-next:before {
+    color: $primary !important;
+  }
+
+  /*spinners */
+  .sk-spinner-three-bounce div {
+    background-color: $primary;
+  }
+}

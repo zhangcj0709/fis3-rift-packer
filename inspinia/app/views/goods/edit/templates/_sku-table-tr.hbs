@@ -1,0 +1,33 @@
+<tr data-sku-id="{{skuId}}" data-setting="{{setting}}">
+  <td class="w50 text-center">
+    <input type="hidden" name="id" value="{{skuId}}">
+    <span {{#if setting}}style="display: none;"{{/if}}>{{skuId}}</span>
+    <div class="checkbox checkbox-primary m-none" {{#if setting}}{{else}}style="display: none;"{{/if}}>
+      <input type="checkbox" name="checkRow"><label></label>
+    </div>
+  </td>
+  {{#each propsName}}{{> goods/edit/templates/_sku-table-td}}{{/each}}
+  <td><input type="number" class="form-control input-sm" name="salePrice" value="{{salePrice}}"></td>
+  <td><input type="number" class="form-control input-sm" name="inventory" value="{{inventory}}"></td>
+  <td class="w100 text-center">
+    <div class="switch d-inline-block va-middle">
+      <div class="onoffswitch">
+        <label class="onoffswitch-label">
+          <input type="checkbox" class="onoffswitch-checkbox" name="enable" value="Y" {{#is enable "Y"}}checked{{/is}}>
+          <span class="onoffswitch-inner"></span>
+          <span class="onoffswitch-switch"></span>
+        </label>
+      </div>
+    </div>
+  </td>
+  <td class="w100 text-center">
+    <div class="btn-group">
+      {{#if skuId}}
+        <button class="btn btn-danger btn-xs" type="button" data-action="deleteSku">删除</button>
+      {{else}}
+        <button class="btn btn-white btn-xs" type="button" data-action="removeRow">移除</button>
+      {{/if}}
+      <button class="btn btn-primary btn-xs" type="button" data-action="saveSku">保存</button>
+    </div>
+  </td>
+</tr>

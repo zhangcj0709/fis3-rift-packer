@@ -1,5 +1,5 @@
 {
-  "filesHome": "build",
+  "filesHome": "../biz-cms-controller/src/main/webapp/resources",
   "dataFiles": [],
   "serverPort": 3000,
   "pageMode": true,

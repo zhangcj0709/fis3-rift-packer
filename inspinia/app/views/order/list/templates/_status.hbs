@@ -1,0 +1,20 @@
+{{#is status.name "create"}}
+  <span class="label label-warning">{{status.disName}}</span>
+{{else}}{{#is status.name "un_paid"}}
+  <span class="label label-warning">{{status.disName}}</span>
+{{else}}{{#is status.name "paid"}}
+  <span class="label label-danger">{{status.disName}}</span>
+{{else}}{{#is status.name "shipped"}}
+    <span class="label label-primary">{{status.disName}}</span>
+{{else}}{{#is status.name "complete"}}
+  <span class="label label-primary">{{status.disName}}</span>
+{{else}}{{#is status.name "cancel"}}
+  <span class="label label-inverse">{{status.disName}}</span>
+{{else}}
+  <span class="label label-default">{{status.disName}}</span>
+{{/is}}
+{{/is}}
+{{/is}}
+{{/is}}
+{{/is}}
+{{/is}}

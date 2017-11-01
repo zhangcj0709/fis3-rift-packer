@@ -1,0 +1,4 @@
+<option value="">请选择</option>
+{{#each options}}
+  <option value="{{name}}" {{#is name ../defaultValue}}selected="selected"{{/is}} data-name="{{name}}" data-value="{{value}}" {{#in "description" ../extendedFields}}data-description="{{description}}"{{/in}}>{{value}}</option>
+{{/each}}

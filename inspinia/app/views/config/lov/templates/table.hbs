@@ -1,0 +1,25 @@
+<table id="lovTable" class="table table-bordered table-hover va-middle" data-pages="{{pages}}" data-page-num="{{pageNum}}" data-page-size="{{pageSize}}">
+  <thead>
+  <tr>
+    <th class="w50 text-center">ID</th>
+    <th class="col-xs-3">类型</th>
+    <th class="col-xs-3">名称</th>
+    <th class="col-xs-3">值</th>
+    <th class="col-xs-3">备注</th>
+    <th class="w100 text-center">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each list}}
+    {{> config/lov/templates/_table-tr}}
+  {{/each}}
+  {{> templates/_table-empty}}
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="999">
+      <div class="pull-right"><ul class="pagination"></ul></div>
+    </td>
+  </tr>
+  </tfoot>
+</table>

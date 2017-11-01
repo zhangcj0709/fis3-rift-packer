@@ -1,0 +1,156 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>订单详情</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>订单管理</a></li>
+        <li class="active"><strong>订单详情</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div id="wrapper-content" class="wrapper wrapper-content animated fadeInRight ecommerce">
+    {{#with order}}
+      <div class="row ">
+        <div class="col-md-9 col-sm-12">
+          <div class="ibox">
+            <div class="ibox-title">
+              <span class="label label-primary pull-right">{{status.disName}}</span>
+              <h5>订单：{{orderNumber}}</h5>
+            </div>
+            <div class="ibox-content">
+              <table class="table small m-b-xs">
+                <tbody>
+                <tr>
+                  <td colspan="3"><strong class="m-r-sm">订单名称</strong> {{orderName}}</td>
+                </tr>
+                <tr>
+                  <td><strong class="m-r-sm d-inline-block" style="width: 4em;">金额</strong> {{amount}}</td>
+                  <td><strong class="m-r-sm">创建时间</strong> {{formatDate commitDt "yyyy.MM.dd HH:mm"}}</td>
+                  <td><strong class="m-r-sm">订单状态</strong> {{status.disName}}</td>
+                </tr>
+                <tr>
+                  <td><strong class="m-r-sm">支付金额</strong> {{payAmount}}</td>
+                  <td><strong class="m-r-sm">支付时间</strong> {{formatDate paidTime "yyyy.MM.dd HH:mm"}}</td>
+                  <td><strong class="m-r-sm">交易流水</strong> {{transactionNumber}}</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong class="m-r-sm d-inline-block" style="width: 4em;">备注</strong> {{comments}}</td>
+                </tr>
+                {{#if ../orderDelivery}}
+                  <tr>
+                    <td><strong class="m-r-sm">物流公司</strong> {{../orderDelivery.deliveryCompanyName}}</td>
+                    <td><strong class="m-r-sm">快递单号</strong> {{../orderDelivery.deliveryNumber}}</td>
+                  </tr>
+                {{/if}}
+                </tbody>
+              </table>
+            </div>
+            <div class="ibox-footer">
+              <div class="clearfix">
+                {{#if commitDt}}<span class="pull-right m-l-lg">创建时间 - <i class="fa fa-clock-o"></i> {{formatDate commitDt "yyyy.MM.dd HH:mm"}}</span>{{/if}}
+                {{#if paidTime}}<span class="pull-right m-l-lg">支付时间 - <i class="fa fa-clock-o"></i> {{formatDate paidTime "yyyy.MM.dd HH:mm"}}</span>{{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="ibox">
+            <div class="ibox-title">
+              <span class="pull-right">(<strong>{{size orderItems}}</strong>) 件商品</span>
+              <h5>购买商品</h5>
+            </div>
+            {{#each orderItems}}
+              <div class="ibox-content">
+                <div class="table-responsive">
+                  <table class="table shoping-cart-table">
+                    <tbody>
+                    <tr>
+                      <td width="96"><img class="img-rounded img-lg" src="{{goodsImage}}" alt=""></td>
+                      <td class="desc">
+                        <h3><a href="/goods/detail/{{goodsId}}" class="text-navy">{{goodsTitle}}</a></h3>
+                        <p class="small">{{cname}}</p><br>
+                        <dl class="small m-b-none">
+                          <dt>规格描述</dt>
+                          <dd>{{#each propsName}}<span class="m-r-sm">{{pname}}：{{pvalue}}</span>{{/each}}</dd>
+                        </dl>
+                      </td>
+                      <td>￥{{goodsPrice}}<br><s class="small text-muted">￥{{nullDefault goodsWorth goodsPrice}}</s></td>
+                      <td width="50"><strong> x {{count}}</strong></td>
+                      <td><strong>￥{{totalPrice}}</strong></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group text-right">
+            <button class="btn btn-white" type="button" data-action="refresh"><i class="fa fa-refresh"></i> 刷新</button>
+            {{#is status "paid"}}<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#deliveryModal"><i class="fa fa-truck"></i> 发货</button>{{/is}}
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          {{#with userVo}}
+            <div class="ibox">
+              <div class="ibox-title"><h5>买家</h5></div>
+              <div class="ibox-content text-center">
+                <h2 class="font-bold no-margins">{{name}}</h2>
+                {{#if nickName}}<p><small>昵称：{{nickName}}</small></p>{{/if}}
+                <img src="{{headImg}}" class="img-lg img-circle circle-border m-b-sm" alt="profile">
+                <div>
+                  <span><i class="fa fa-phone"></i> {{mobile}}</span>
+                </div>
+              </div>
+            </div>
+          {{/with}}
+          <div class="ibox">
+            <div class="ibox-title">
+              <h5>收货地址</h5>
+            </div>
+            <div class="ibox-content">
+              <h3>{{name}} <span class="pull-right"><i class="fa fa-phone"></i> {{phoneNumber}}</span></h3>
+              <p>{{address}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{#is status "paid"}}
+        <div id="deliveryModal" class="modal inmodal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <form class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">填写物流</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-horizontal row">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">选择物流:</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" name="deliveryId" data-toggle="customized" data-type="select2" data-lov-type="DELIVERY_COMPANY" data-field="id"></select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">快递单号:</label>
+                    <div class="col-sm-10"><input type="text" class="form-control" name="deliveryNumber"></div>
+                  </div>
+                  <input type="hidden" name="orderId" value="{{id}}">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <span class="checkbox checkbox-primary pull-left m-t-xs m-b-none"><input type="checkbox" id="dontNeedDeliver" value="mobile_app"><label for="dontNeedDeliver">虚拟物品，确认已发货！</label></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-action="delivery">确认发货</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      {{/is}}
+    {{/with}}
+  </div>
+  <input type="hidden" id="cmd-require" value="order/detail/view">
+{{/partial}}
+{{> main_layout}}

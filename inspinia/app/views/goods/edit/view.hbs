@@ -1,0 +1,39 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>商品编辑</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>商品管理</a></li>
+        <li class="active"><strong>商品编辑</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tabs-container">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-shopping-bag"></i> 商品</a></li>
+            {{#if goods}}
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-edit"></i> 详情编辑</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-image"></i>  图片管理</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-barcode"></i>  库存管理</a></li>
+            {{/if}}
+          </ul>
+          <div class="tab-content">
+              {{> goods/edit/templates/tab-1}}
+              {{#if goods}}
+                {{> goods/edit/templates/tab-2}}
+                {{> goods/edit/templates/tab-3}}
+                {{> goods/edit/templates/tab-4}}
+              {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/partial}}
+{{> main_layout}}

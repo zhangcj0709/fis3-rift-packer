@@ -1,0 +1,27 @@
+@import "/app/styles/imported";
+
+.table {
+  position: relative;
+  tbody.table-loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255,255,255,0.6) !important;
+    z-index: 99;
+    tr {
+      display: block;
+      height: 100%;
+      background: transparent;
+      td {
+        display: -webkit-flex;
+        display: flex;
+        height: 100%;
+        vertical-align: middle !important;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+}

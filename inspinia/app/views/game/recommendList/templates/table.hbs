@@ -1,0 +1,25 @@
+<table class="table table-hover va-middle m-b-none" data-pages="{{pages}}" data-page-num="{{pageNum}}" data-page-size="{{pageSize}}">
+  <tbody>
+  {{#each this}}
+    <tr data-id="{{id}}">
+      <td class="d-flex">
+        <img class="img-rounded img-sm m-r-sm m-l-sm" alt="image" src="{{logoUrl}}">
+        <div>
+          {{name}}
+          {{#eachForStr tags}}<small class="label label-primary m-r-xs">{{this}}</small>{{/eachForStr}}
+          <br>
+          <small>{{summarize}}</small>
+        </div>
+      </td>
+      <td class="w50 text-center">{{> game/list/templates/_status}}</td>
+      <td class="w100 text-right">
+        <div class="btn-group m-r-sm">
+          <button name="editBtn" class="btn-warning btn btn-xs m-n" type="button" data-action="cancelRecommend">取消</button>
+          <button name="viewBtn" class="btn-info btn btn-xs m-n" type="button" data-href="/game/detail/{{id}}">查看</button>
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+  {{> templates/_table-empty}}
+  </tbody>
+</table>

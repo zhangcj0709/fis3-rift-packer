@@ -1,0 +1,31 @@
+{{#partial "content"}}
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>常用配置</h2>
+      <ol class="breadcrumb">
+        <li><a href="/index">首页</a></li>
+        <li><a>商品管理</a></li>
+        <li class="active"><strong>常用配置</strong></li>
+      </ol>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tabs-container">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-th-list"></i> 商品类目</a></li>
+            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-image"></i> 商城轮播图</a></li>
+          </ul>
+          <div class="tab-content">
+              {{> goods/config/templates/tab-1}}
+              {{> goods/config/templates/tab-2}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/partial}}
+{{> main_layout}}

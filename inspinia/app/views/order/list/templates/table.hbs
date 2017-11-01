@@ -1,0 +1,71 @@
+<table class="table table-striped va-middle" data-pages="{{pages}}" data-page-num="{{pageNum}}" data-page-size="{{pageSize}}" data-total="{{total}}" data-toggle="customized" data-type="collapseTable">
+  <thead>
+  <tr>
+    <th class="w50 text-center">ID</th>
+    <th>订单号</th>
+    <th colspan="2">订单名称</th>
+    <th>订单金额</th>
+    <th>下单时间</th>
+    <th>买家电话</th>
+    <th class="w50 text-center">状态</th>
+    <th class="w100 text-right">操作</th>
+    <th class="d-none" data-collapse="true"></th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each list}}
+    <tr data-id="{{id}}">
+      <td class="w50 text-center">{{id}}</td>
+      <td>{{orderNumber}}</td>
+      <td class="p-r-none">
+        {{#if orderItems}}{{#each orderItems}}{{#if @first}}
+          <img class="img-sm img-rounded" src="{{goodsImage}}" alt="">
+        {{/if}}{{/each}}{{/if}}
+      </td>
+      <td>{{orderName}}</td>
+      <td>{{amount}}</td>
+      <td>{{formatDate commitDt "yyyy-MM-dd HH:mm:ss"}}</td>
+      <td>{{phoneNumber}}</td>
+      <td class="w50 text-center">{{> order/list/templates/_status}}</td>
+      <td class="w100 text-right">
+        <div class="btn-group">
+          <button name="viewBtn" class="btn-info btn btn-xs m-n" data-href="/order/detail/{{id}}">查看</button>
+          {{!--<button name="deliverBtn" class="btn-danger btn btn-xs m-n" {{#is status.name "paid"}}{{else}}disabled="disabled"{{/is}}>发货</button>--}}
+        </div>
+      </td>
+      <td class="d-none" data-collapse="true">
+        <div class="row">
+          <div class="col-xs-10">
+            {{#if orderItems}}
+              {{> order/list/templates/_products}}
+            {{/if}}
+            <div class="row">
+              <div class="col-xs-4">买家姓名：{{userVo.nickName}}</div>
+              <div class="col-xs-4">买家电话：{{userVo.mobile}}</div>
+              <div class="col-xs-12"><hr class="m-t-sm m-b-sm"></div>
+              <div class="col-xs-4">创建时间：{{formatDate commitDt "yyyy-MM-dd HH:mm:ss"}}</div>
+              <div class="col-xs-4">支付时间：{{formatDate paidTime "yyyy-MM-dd HH:mm:ss"}}</div>
+              <div class="col-xs-4">交易流水：{{transactionNumber}}</div>
+              <div class="col-xs-12"><hr class="m-t-sm m-b-sm"></div>
+              <div class="col-xs-4">收货地址：{{address}}</div>
+              <div class="col-xs-4">联 系 人 ：{{name}}</div>
+              <div class="col-xs-4">联系电话：{{phoneNumber}}</div>
+              <div class="col-xs-12"><hr class="m-t-sm m-b-sm"></div>
+              <div class="col-xs-8">备注：{{comments}}</div>
+              <div class="col-xs-12"><hr class="m-t-sm m-b-sm"></div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+  {{> templates/_table-empty}}
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="999">
+      <div class="pull-right"><ul class="pagination"></ul></div>
+    </td>
+  </tr>
+  </tfoot>
+</table>

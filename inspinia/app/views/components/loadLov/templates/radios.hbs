@@ -1,0 +1,3 @@
+{{#each radios}}
+  <label><input type="radio" name="{{../fieldName}}" value="{{name}}" {{#is name ../defaultValue}}checked="checked"{{/is}} {{#in "description" ../extendedFields}}data-description="{{description}}"{{/in}}>{{value}}</label>
+{{/each}}

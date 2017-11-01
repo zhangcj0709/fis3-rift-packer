@@ -1,0 +1,10 @@
+{{#each orderItems}}
+  <div class="widget gray-bg ">
+    <img src="{{goodsImage}}" class="img-md pull-left m-r-md">
+    <p class="text-truncate"><a href="/goods/detail/{{goodsId}}">{{goodsTitle}}</a></p>
+    <p class="m-b-none m-t-md clearfix">
+      <span class="m-t-xs">{{#each propsName}}<span class="m-r-sm">{{pname}}：{{pvalue}}</span>{{/each}}</span>
+      <big class="font-bold pull-right"><span>单价：￥{{goodsPrice}}</span><span class="m-l-lg">数量：{{count}}</span></big>
+    </p>
+  </div>
+{{/each}}

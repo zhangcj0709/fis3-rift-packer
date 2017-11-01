@@ -5,10 +5,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  color: theme-color(dark);
-}
-
 ol, ul {
   list-style: none;
   padding: 0;
@@ -26,4 +22,38 @@ big, .big {
 .icon {
   display: inline-block;
   font-size: inherit;
+}
+
+.error[data-toggle="cutImage"],
+.error[data-toggle="customized"][data-type="imageUpload"] {
+  > * {
+    border: 1px dotted #cc5965 !important;
+  }
+}
+
+
+.collapse-wrapper {
+  background-color: #f9f9f9;
+  table {
+    width: 100%;
+    th, td {
+      padding: 8px;
+    }
+    td {
+      width: 95%;
+    }
+    th {
+      width: 5%;
+      min-width: 6em;
+      text-align: right;
+    }
+  }
+}
+
+
+.table-empty {
+  display: none;
+}
+tbody tr:only-child.table-empty {
+  display: table-row;
 }

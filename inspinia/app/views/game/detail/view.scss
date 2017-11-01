@@ -1,0 +1,27 @@
+@import "/app/styles/imported";
+
+.score-stars {
+  display: inline-block;
+  line-height: 20px;
+  margin-right: 5px;
+  .fa {
+    font-size: 12px !important;
+    color: #CDCDCD !important;
+    margin: 4px 0;
+  }
+  &[data-score='1'] .fa:nth-child(-n+1) {
+    color: #E6752E !important;
+  }
+  &[data-score='2'] .fa:nth-child(-n+2) {
+    color: #E6752E !important;
+  }
+  &[data-score='3'] .fa:nth-child(-n+3) {
+    color: #E6752E !important;
+  }
+  &[data-score='4'] .fa:nth-child(-n+4) {
+    color: #E6752E !important;
+  }
+  &[data-score='5'] .fa:nth-child(-n+5) {
+    color: #E6752E !important;
+  }
+}
